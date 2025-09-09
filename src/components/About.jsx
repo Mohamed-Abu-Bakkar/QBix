@@ -17,7 +17,7 @@ export default function About() {
     <AboutWrapper id="about">
       <Container className="content">
         <motion.img
-          src="https://cdn.vectorstock.com/i/500p/99/75/qb-techno-editable-font-logo-for-corporate-vector-56619975.jpg"
+          src="/logo.png"
           alt="About QBix"
           style={FloatingImage}
           initial={{ opacity: 0, x: -50 }}
