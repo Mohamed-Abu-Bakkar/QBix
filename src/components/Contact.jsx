@@ -51,7 +51,7 @@ export default function Contact() {
       <Container maxWidth="sm" className="content">
         <ScrollReveal direction="up">
           <Typography variant="h4" gutterBottom align="center" sx={{ color: "#42a5f5" }}>
-            Contact Us
+            Only thing you have to do
           </Typography>
         </ScrollReveal>
         <ScrollReveal direction="up" delay={0.2}>

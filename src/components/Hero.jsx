@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Container, Typography, Button, Box } from "@mui/material";
-import { HeroWrapper, ScrollArrow } from "../styles/GlobalStyles.js";
+import { HeroWrapper, ScrollArrow } from "../styles/GlobalStyles";
 import ScrollReveal from "./ScrollReveal";
 
 export default function Hero() {
@@ -27,6 +27,7 @@ export default function Hero() {
 
   return (
     <HeroWrapper id="home">
+      {/* Background glow orbs */}
       <div
         className="glow"
         style={{
@@ -40,6 +41,7 @@ export default function Hero() {
         }}
       />
 
+      {/* Hero content */}
       <Container className="content">
         <ScrollReveal direction="up">
           <Typography
@@ -85,6 +87,7 @@ export default function Hero() {
         </ScrollReveal>
       </Container>
 
+      {/* Premium scroll indicator */}
       <ScrollArrow onClick={scrollToNext} />
     </HeroWrapper>
   );

@@ -8,6 +8,7 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import ScrollProgress from "./components/ScrollProgress";
 import { createGlobalStyle } from "styled-components";
+import Projects from "./components/Projects";
 
 const GlobalStyle = createGlobalStyle`
   html, body, #root {
@@ -27,6 +28,7 @@ export default function App() {
       <Hero />
       <About />
       <Services />
+      <Projects />
       <Testimonials />
       <Contact />
       <Footer />

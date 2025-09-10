@@ -1,85 +1,90 @@
-import React, { useState, useEffect } from "react";
-import { Container, Grid, Typography, Card, CardContent } from "@mui/material";
-import { motion } from "framer-motion";
-import styled from "styled-components";
-
-const ServicesWrapper = styled.div`
-  padding: 5rem 0;
-  background: #0a0a0a;
-  color: white;
-  position: relative;
-  overflow: hidden;
-
-  .content {
-    position: relative;
-    z-index: 1;
-  }
-
-  .service-card {
-    background: #111;
-    border-radius: 12px;
-    transition: transform 0.3s, box-shadow 0.3s;
-    &:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 10px 20px rgba(66, 165, 245, 0.4);
-    }
-  }
-`;
-
-const servicesData = [
-  { title: "Web Development", desc: "Responsive websites with modern tech stack." },
-  { title: "Analytics", desc: "Data-driven insights to scale your business." },
-  { title: "AI Solutions", desc: "Custom AI tools to automate and innovate." },
-  { title: "Consulting", desc: "Expert guidance for startups and enterprises." },
-];
+import React, { useState } from "react";
+import { Container, Typography, Box } from "@mui/material";
+import { ServicesWrapper } from "../styles/GlobalStyles";
+import ScrollReveal from "./ScrollReveal";
 
 export default function Services() {
-  const [offsetY, setOffsetY] = useState(0);
+  const services = [
+    {
+      title: "Web Development",
+      description:
+        "We build fast, scalable, and responsive web applications using modern frameworks and tools.",
+      img: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80",
+    },
+    {
+      title: "Mobile Apps",
+      description:
+        "Cross-platform mobile apps with seamless performance and engaging UI/UX.",
+      img: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=600&q=80",
+    },
+    {
+      title: "AI & Automation",
+      description:
+        "Leverage AI-driven solutions and automation tools to boost productivity and innovation.",
+      img: "https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&w=600&q=80",
+    },
+  ];
 
-  useEffect(() => {
-    const handleScroll = () => setOffsetY(window.scrollY);
-    window.addEventListener("scroll", handleScroll);
-    setOffsetY(window.scrollY);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const [activeImg, setActiveImg] = useState(services[0].img);
+  const [hoveredIndex, setHoveredIndex] = useState(null); // Track hovered item
 
   return (
     <ServicesWrapper id="services">
       <Container className="content">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
-          <Typography variant="h4" gutterBottom align="center" sx={{ color: "#42a5f5" }}>
-            Our Services
+        <ScrollReveal direction="up">
+          <Typography
+            variant="h4"
+            gutterBottom
+            align="center"
+            fontSize={48}
+            fontWeight={1000}
+            sx={{ color: "#42a5f5", mb: 5 }}
+          >
+            What we Provide
           </Typography>
-        </motion.div>
+        </ScrollReveal>
 
-        <Grid container spacing={4} sx={{ mt: 3 }}>
-          {servicesData.map((service, i) => (
-            <Grid item xs={12} md={6} key={i}>
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: i * 0.2 }}
-                viewport={{ once: true }}
-              >
-                <Card className="service-card">
-                  <CardContent>
-                    <Typography variant="h6" sx={{ color: "#42a5f5", fontWeight: "bold" }}>
-                      {service.title}
+        <Box className="service-layout">
+          {/* Left Side - Only titles, description shows on hover */}
+          <Box className="service-texts">
+            {services.map((service, index) => (
+              <ScrollReveal key={index} direction="left">
+                <Box
+                  className="service-item"
+                  onMouseEnter={() => {
+                    setActiveImg(service.img);
+                    setHoveredIndex(index);
+                  }}
+                  onMouseLeave={() => setHoveredIndex(null)}
+                >
+                  <Typography
+                    variant="h5"
+                    sx={{ mb: 1, color: "#42a5f5" }}
+                  >
+                    {service.title}
+                  </Typography>
+
+                  {/* Show description only on hover */}
+                  {hoveredIndex === index && (
+                    <Typography variant="body1" sx={{ color: "#ddd" }}>
+                      {service.description}
                     </Typography>
-                    <Typography variant="body1" sx={{ color: "white", mt: 1 }}>
-                      {service.desc}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            </Grid>
-          ))}
-        </Grid>
+                  )}
+                </Box>
+              </ScrollReveal>
+            ))}
+          </Box>
+
+          {/* Right Side - Animated Image */}
+          <Box className="service-image">
+            <img
+              key={activeImg} // Force fade animation
+              src={activeImg}
+              alt="Active Service"
+              className="fade-img"
+            />
+          </Box>
+        </Box>
       </Container>
     </ServicesWrapper>
   );
